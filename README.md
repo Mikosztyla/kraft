@@ -1,70 +1,61 @@
-# Getting Started with Create React App
+# Kraft — Cocktail Bar Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React website for **Kraft**, a cocktail bar at Jagiellońska 8, 31-010 Kraków.
 
-## Available Scripts
+## Highlights
 
-In the project directory, you can run:
+- **Hero** with the bar interior as a parallax background and the gold Kraft logo on top.
+- **Story** section with copy and a framed interior photo.
+- **Interactive menu** with sticky category tabs and a **rotating cocktail-glass illustration** that spins as you scroll. The illustration also switches between six different drink types (martini, highball, coupe, rocks, wine, flute) as the active category changes.
+- **Gallery** mosaic from the interior photoshoot.
+- **Visit** section with address, opening hours and a Google Maps link.
+- Full **responsive layout** — tested for desktop, tablet, and mobile.
+- Brand palette extracted from the printed menu (deep wine + warm gold).
+- All menu data extracted from the printed menu pages — every drink, every PLN price.
 
-### `npm start`
+## Project structure
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+src/
+  App.js              -- top-level layout (Hero + Main + Footer)
+  App.css             -- all visual styles, including the responsive breakpoints
+  index.css           -- font imports + base reset
+  components/
+    Hero.js           -- full-bleed hero with parallax background
+    About.js          -- "Our Story" section
+    Menu.js           -- interactive menu with rotating cocktail glass
+    DrinkSVGs.js      -- 6 hand-drawn cocktail-glass SVGs
+    Gallery.js        -- 4-cell photo mosaic
+    Visit.js          -- address, hours, contact card
+    Footer.js         -- bottom bar with logo and contact
+  data/menu.js        -- structured menu data (categories, items, prices in PLN)
+  assets/             -- logos imported as React modules
+public/images/
+  interior/           -- web-optimised interior photos (~600KB each)
+  logo/               -- gold/white/black brand logos
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Running locally
 
-### `npm test`
+```bash
+npm install      # already done in this repo
+npm start        # http://localhost:3000
+npm run build    # production build into ./build
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Available logos
 
-### `npm run build`
+Three colour variants of the Kraft logo are available in `public/images/logo/`
+and `src/assets/`: `KRAFT_logo_gold.png`, `KRAFT_logo_white.png`, `KRAFT_logo_black.png`.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Customising the menu
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+All menu data lives in `src/data/menu.js`. Each entry looks like:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```js
+{ id: "draft", name: "Homemade Draft", tagline: "...", items: [
+  { name: "Negroni", price: 40 }, ...
+] }
+```
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Add, edit or reorder freely — the menu UI updates automatically.
