@@ -1,0 +1,148 @@
+import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+
+// All translatable strings live here. Polish is the default.
+export const translations = {
+  pl: {
+    nav: { menu: "Menu", story: "O nas", gallery: "Galeria", visit: "Odwiedź nas" },
+    hero: {
+      tagline: "Bar Koktajlowy · Kraków",
+      sub:
+        "Domowe koktajle z beczki, światowej klasy alkohole i spokojny kącik na Jagiellońskiej — otwarte od popołudnia do późna.",
+      cta: "Zobacz Menu",
+      scroll: "scroll",
+    },
+    about: {
+      eyebrow: "O nas",
+      heading: "Rzemieślniczy bar na Jagiellońskiej.",
+      p1:
+        "Kraft to spokojny, oświetlony świecami lokal w sercu starego Krakowa — oparty na założeniu, że koktajl powinien być przygotowany z taką samą dbałością jak alkohol, z którego powstaje. Nasze domowe koktajle z beczki są wcześniej kompozycjonowane, leżakowane i podawane w idealnej temperaturze, a za barem czeka ponad sto starannie wybranych butelek z polskich destylarni i z całego świata.",
+      p2:
+        "Wpadnij na kawę po południu, na Aperol w trakcie wieczoru lub zostań na dłużej z whisky w dłoni. Cokolwiek zamówisz, podaje to ktoś, komu naprawdę zależy.",
+      h1: "Domowe", h1sub: "9 koktajli z beczki",
+      h2: "120+", h2sub: "alkoholi za barem",
+      h3: "Codziennie", h3sub: "otwarte do późna",
+    },
+    menu: {
+      eyebrow: "Karta",
+      heading: "Menu",
+      note: "Wszystkie ceny w PLN. Roczniki i dostępność mogą się zmieniać.",
+      now: "Aktualnie",
+    },
+    gallery: { eyebrow: "Wnętrze", heading: "Wewnątrz Kraftu" },
+    visit: {
+      eyebrow: "Odwiedź nas",
+      heading: "Znajdź swoje miejsce w Krafcie.",
+      address: "Adres",
+      addressLine: "Jagiellońska 8\n31-010 Kraków, Polska",
+      hours: "Godziny otwarcia",
+      hoursLines: "Niedz. – Czw. · 12:00 – 01:00\nPt. – Sob. · 12:00 – 02:00",
+      hoursNote: "Czasem zostajemy dłużej — do ostatniego gościa.",
+      maps: "Otwórz w Google Maps",
+    },
+    footer: {
+      brand: "Kraft Cocktail Bar",
+      address: "Jagiellońska 8, 31-010 Kraków",
+      contact: "Kontakt",
+      follow: "Obserwuj",
+      legal: "Wszystkie prawa zastrzeżone.",
+    },
+    categories: {
+      draft:           { name: "Homemade Draft",            tagline: "Koktajle z beczki, robione w domu" },
+      vodka:           { name: "Wódka",                     tagline: "Polskie i światowe wódki" },
+      gin:             { name: "Gin",                       tagline: "Klasyki ziołowe i nowoczesne edycje" },
+      rum:             { name: "Rum",                       tagline: "Od jasnej trzciny po głęboko leżakowane" },
+      tequila:         { name: "Tequila & Mezcal",          tagline: "Alkohole z agawy, sączone powoli" },
+      "whisky-scotch":   { name: "Whisky Szkocja",            tagline: "Single malts i kupaże ze Szkocji" },
+      "whisky-american": { name: "Whiskey Ameryka",           tagline: "Bourbon, rye i amerykańskie destylaty" },
+      "whisky-irish-jp": { name: "Whisky Irlandia & Japonia", tagline: "Łagodne irlandzkie i wytrawne japońskie whisky" },
+      brandy:          { name: "Brandy & Spirytusy",        tagline: "Koniak, calvados, śliwowica i absynt" },
+      wine:            { name: "Wino",                      tagline: "Na kieliszki i butelki" },
+      cafe:            { name: "Café",                      tagline: "Espresso bar przez cały dzień" },
+    },
+  },
+  en: {
+    nav: { menu: "Menu", story: "Story", gallery: "Gallery", visit: "Visit" },
+    hero: {
+      tagline: "Cocktail Bar · Kraków",
+      sub:
+        "Homemade draft cocktails, world-class spirits and a quiet corner on Jagiellońska — open from afternoon until late.",
+      cta: "Explore the Menu",
+      scroll: "scroll",
+    },
+    about: {
+      eyebrow: "Our Story",
+      heading: "A craft bar on Jagiellońska.",
+      p1:
+        "Kraft is a quiet, candle-lit room in the heart of old Kraków — built around the idea that a cocktail should be made with the same care as the spirit inside it. Our homemade drafts are pre-batched, aged and poured at the perfect temperature, while our back-bar gathers more than a hundred curated bottles from Polish distilleries and the world over.",
+      p2:
+        "Drop in for a coffee in the afternoon, an Aperol in the evening, or settle in for a long evening of single malts. Whatever you order, it's poured by people who care.",
+      h1: "Homemade", h1sub: "9 draft cocktails",
+      h2: "120+", h2sub: "spirits behind the bar",
+      h3: "Daily", h3sub: "open until late",
+    },
+    menu: {
+      eyebrow: "The List",
+      heading: "Menu",
+      note: "All prices in PLN. Vintages and availability may vary.",
+      now: "Now serving",
+    },
+    gallery: { eyebrow: "The Room", heading: "Inside Kraft" },
+    visit: {
+      eyebrow: "Visit Us",
+      heading: "Find your seat at Kraft.",
+      address: "Address",
+      addressLine: "Jagiellońska 8\n31-010 Kraków, Poland",
+      hours: "Hours",
+      hoursLines: "Sun – Thu · 12:00 – 01:00\nFri – Sat · 12:00 – 02:00",
+      hoursNote: "Sometimes we stay open later — until the last guest.",
+      maps: "Open in Google Maps",
+    },
+    footer: {
+      brand: "Kraft Cocktail Bar",
+      address: "Jagiellońska 8, 31-010 Kraków",
+      contact: "Contact",
+      follow: "Follow",
+      legal: "All rights reserved.",
+    },
+    categories: {
+      draft:           { name: "Homemade Draft",       tagline: "Cocktails on tap, crafted in-house" },
+      vodka:           { name: "Vodka",                tagline: "Polish & international vodka selection" },
+      gin:             { name: "Gin",                  tagline: "Botanical classics & modern editions" },
+      rum:             { name: "Rum",                  tagline: "From light cane to deep-aged reserve" },
+      tequila:         { name: "Tequila & Mezcal",     tagline: "Agave spirits, sipped slow" },
+      "whisky-scotch":   { name: "Whisky — Scotland",     tagline: "Single malts and blends from Scotland" },
+      "whisky-american": { name: "Whiskey — America",     tagline: "Bourbon, rye and craft American" },
+      "whisky-irish-jp": { name: "Whisky — Ireland & Japan", tagline: "Smooth Irish drams & refined Japanese whisky" },
+      brandy:          { name: "Brandy & Spirits",     tagline: "Cognac, calvados, śliwowica & absinthe" },
+      wine:            { name: "Wine",                 tagline: "By the glass and by the bottle" },
+      cafe:            { name: "Café",                 tagline: "Espresso bar, all day" },
+    },
+  },
+};
+
+const LanguageContext = createContext({ lang: "pl", setLang: () => {}, t: translations.pl });
+
+export function LanguageProvider({ children }) {
+  const [lang, setLang] = useState(() => {
+    if (typeof window === "undefined") return "pl";
+    try {
+      return localStorage.getItem("kraft.lang") || "pl";
+    } catch {
+      return "pl";
+    }
+  });
+
+  useEffect(() => {
+    try { localStorage.setItem("kraft.lang", lang); } catch {}
+    if (typeof document !== "undefined") {
+      document.documentElement.lang = lang;
+    }
+  }, [lang]);
+
+  const value = useMemo(() => ({ lang, setLang, t: translations[lang] || translations.pl }), [lang]);
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
+}
+
+export function useLang() {
+  return useContext(LanguageContext);
+}
