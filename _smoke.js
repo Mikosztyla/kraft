@@ -1,5 +1,3 @@
-// Optional SSR smoke test. Safe to delete; not used by the app or build.
-// Run with: node _smoke.js  (renders <App /> to HTML and prints sanity checks)
 const babel = require('@babel/core');
 const fs = require('fs');
 const path = require('path');
@@ -28,15 +26,37 @@ Module._extensions['.js'] = function (module, filename) {
   return origJS(module, filename);
 };
 
-global.window = { addEventListener: () => {}, removeEventListener: () => {}, scrollY: 0, innerHeight: 800 };
-global.document = { getElementById: () => null };
+global.window = {
+  addEventListener: () => {}, removeEventListener: () => {},
+  scrollY: 0, innerHeight: 800,
+  localStorage: { getItem: () => null, setItem: () => {} },
+};
+global.document = { getElementById: () => null, documentElement: {} };
+global.localStorage = global.window.localStorage;
 
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const App = require('./src/App').default;
 const html = ReactDOMServer.renderToStaticMarkup(React.createElement(App));
+
 console.log('Rendered OK, html length:', html.length);
-console.log('  Kraft:', html.includes('Kraft'));
-console.log('  Negroni:', html.includes('Negroni'));
-console.log('  Jagiellońska:', html.includes('Jagiellońska'));
-console.log('  PLN:', html.includes('PLN'));
+const checks = [
+  ['Kraft brand', html.includes('Kraft')],
+  ['Cocktail item Negroni', html.includes('Negroni')],
+  ['Jagiellonska in address', html.includes('Jagiellońska')],
+  ['PLN currency', html.includes('PLN')],
+  ['Polish hero tagline', html.includes('Bar Koktajlowy')],
+  ['Polish about heading', html.includes('Rzemieślniczy')],
+  ['New hours 12:00 to 01:00', html.includes('12:00')],
+  ['No "Reservations"', !html.includes('Reservations') && !html.includes('Rezerwacje')],
+  ['No "patio"', !html.toLowerCase().includes('patio')],
+  ['IG kraft.krk link', html.includes('instagram.com/kraft.krk')],
+  ['Email kraft.krakow@gmail.com', html.includes('kraft.krakow@gmail.com')],
+  ['Maps short link', html.includes('maps.app.goo.gl/Gjk2V4Vo333yu2Z56')],
+  ['Lang switcher rendered', html.includes('lang-switcher')],
+  ['Polski label', html.includes('Polski')],
+  ['English label', html.includes('English')],
+];
+for (const [label, ok] of checks) {
+  console.log((ok ? '  OK   ' : '  FAIL ') + label);
+}

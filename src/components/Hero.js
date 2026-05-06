@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import logoGold from "../assets/KRAFT_logo_gold.png";
+import { useLang } from "../i18n";
 
 export default function Hero() {
+  const { t } = useLang();
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -10,7 +12,6 @@ export default function Hero() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Subtle parallax: background drifts slower than scroll
   const parallax = Math.min(scrollY * 0.35, 250);
 
   return (
@@ -25,25 +26,22 @@ export default function Hero() {
       <div className="hero__overlay" />
 
       <nav className="hero__nav">
-        <a href="#menu">Menu</a>
-        <a href="#about">Story</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#visit">Visit</a>
+        <a href="#menu">{t.nav.menu}</a>
+        <a href="#about">{t.nav.story}</a>
+        <a href="#gallery">{t.nav.gallery}</a>
+        <a href="#visit">{t.nav.visit}</a>
       </nav>
 
       <div className="hero__content">
         <img src={logoGold} alt="Kraft" className="hero__logo" />
-        <p className="hero__tagline">Cocktail Bar &middot; Krak&oacute;w</p>
+        <p className="hero__tagline">{t.hero.tagline}</p>
         <div className="hero__rule" />
-        <p className="hero__sub">
-          Homemade draft cocktails, world-class spirits and a quiet
-          corner on Jagiello&#324;ska &mdash; open from afternoon until late.
-        </p>
-        <a href="#menu" className="hero__cta">Explore the Menu</a>
+        <p className="hero__sub">{t.hero.sub}</p>
+        <a href="#menu" className="hero__cta">{t.hero.cta}</a>
       </div>
 
       <div className="hero__scroll-cue">
-        <span>scroll</span>
+        <span>{t.hero.scroll}</span>
         <div className="hero__scroll-line" />
       </div>
     </header>

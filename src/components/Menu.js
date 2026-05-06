@@ -1,18 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import menu from "../data/menu";
 import DRINK_ICONS from "./DrinkSVGs";
+import { useLang } from "../i18n";
 
-/**
- * Interactive menu with a rotating drink illustration.
- * - As the user scrolls through the menu section, the cocktail glass rotates.
- * - Each category snaps into view, switching the active glass.
- * - The active tab in the sticky pill bar auto-centres horizontally:
- *     * first tab stays on the left (no scroll yet),
- *     * middle tabs sit in the centre,
- *     * the last tabs end up on the right when the bar can't scroll further.
- * - Click a category tab to jump straight to it.
- */
 export default function Menu() {
+  const { t } = useLang();
   const [activeIndex, setActiveIndex] = useState(0);
   const [rotation, setRotation] = useState(0);
   const sectionRef = useRef(null);
@@ -20,7 +12,6 @@ export default function Menu() {
   const tabsRef = useRef(null);
   const tabRefs = useRef([]);
 
-  // Track scroll position to set rotation + active category
   useEffect(() => {
     const handleScroll = () => {
       const section = sectionRef.current;
@@ -58,59 +49,57 @@ export default function Menu() {
     };
   }, []);
 
-  // Center the active tab inside the horizontally-scrollable tab bar.
-  // The browser clamps scrollLeft to [0, scrollWidth - clientWidth] automatically,
-  // so the first tab naturally sits on the left and the last tabs on the right;
-  // everything in between is centred.
+  // Center the active tab horizontally; clamps naturally to left/right at the edges.
   useEffect(() => {
     const container = tabsRef.current;
     const btn = tabRefs.current[activeIndex];
     if (!container || !btn) return;
-
     const target =
       btn.offsetLeft + btn.offsetWidth / 2 - container.clientWidth / 2;
-
     container.scrollTo({ left: target, behavior: "smooth" });
   }, [activeIndex]);
 
   const ActiveIcon = DRINK_ICONS[activeIndex % DRINK_ICONS.length];
-
-  const formatPrice = (p) =>
-    new Intl.NumberFormat("pl-PL").format(p) + " PLN";
-
+  const formatPrice = (p) => new Intl.NumberFormat("pl-PL").format(p) + " PLN";
   const scrollTo = (idx) => {
-    categoryRefs.current[idx]?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    categoryRefs.current[idx]?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+
+  // Resolve a localized category, falling back to the data file if no translation exists.
+  const cat = (rawCat) => {
+    const trans = t.categories?.[rawCat.id];
+    return {
+      name: trans?.name ?? rawCat.name,
+      tagline: trans?.tagline ?? rawCat.tagline,
+    };
+  };
+
+  const activeCat = menu[activeIndex] ? cat(menu[activeIndex]) : { name: "", tagline: "" };
 
   return (
     <section id="menu" className="menu" ref={sectionRef}>
       <div className="menu__heading">
-        <span className="eyebrow">The List</span>
-        <h2>Menu</h2>
-        <p>All prices in PLN. Vintages and availability may vary.</p>
+        <span className="eyebrow">{t.menu.eyebrow}</span>
+        <h2>{t.menu.heading}</h2>
+        <p>{t.menu.note}</p>
       </div>
 
-      {/* Sticky tab bar (categories) */}
       <div className="menu__tabs-wrap">
         <div className="menu__tabs" ref={tabsRef}>
-          {menu.map((cat, i) => (
+          {menu.map((rawCat, i) => (
             <button
-              key={cat.id}
+              key={rawCat.id}
               ref={(el) => (tabRefs.current[i] = el)}
               className={`menu__tab ${activeIndex === i ? "is-active" : ""}`}
               onClick={() => scrollTo(i)}
             >
-              {cat.name}
+              {cat(rawCat).name}
             </button>
           ))}
         </div>
       </div>
 
       <div className="menu__layout">
-        {/* Left: rotating drink visual */}
         <aside className="menu__visual">
           <div className="menu__visual-sticky">
             <div
@@ -120,9 +109,9 @@ export default function Menu() {
               <ActiveIcon />
             </div>
             <div className="menu__visual-meta">
-              <span className="menu__visual-eyebrow">Now serving</span>
-              <strong>{menu[activeIndex]?.name}</strong>
-              <em>{menu[activeIndex]?.tagline}</em>
+              <span className="menu__visual-eyebrow">{t.menu.now}</span>
+              <strong>{activeCat.name}</strong>
+              <em>{activeCat.tagline}</em>
               <span className="menu__visual-counter">
                 {String(activeIndex + 1).padStart(2, "0")} /{" "}
                 {String(menu.length).padStart(2, "0")}
@@ -131,31 +120,33 @@ export default function Menu() {
           </div>
         </aside>
 
-        {/* Right: scrolling list of categories */}
         <div className="menu__list">
-          {menu.map((cat, i) => (
-            <article
-              key={cat.id}
-              className="menu__category"
-              ref={(el) => (categoryRefs.current[i] = el)}
-            >
-              <header className="menu__cat-head">
-                <h3>{cat.name}</h3>
-                <span>{cat.tagline}</span>
-              </header>
-              <ul className="menu__items">
-                {cat.items.map((it) => (
-                  <li key={it.name} className="menu__item">
-                    <span className="menu__item-name">{it.name}</span>
-                    <span className="menu__item-dots" />
-                    <span className="menu__item-price">
-                      {formatPrice(it.price)}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
+          {menu.map((rawCat, i) => {
+            const c = cat(rawCat);
+            return (
+              <article
+                key={rawCat.id}
+                className="menu__category"
+                ref={(el) => (categoryRefs.current[i] = el)}
+              >
+                <header className="menu__cat-head">
+                  <h3>{c.name}</h3>
+                  <span>{c.tagline}</span>
+                </header>
+                <ul className="menu__items">
+                  {rawCat.items.map((it) => (
+                    <li key={it.name} className="menu__item">
+                      <span className="menu__item-name">{it.name}</span>
+                      <span className="menu__item-dots" />
+                      <span className="menu__item-price">
+                        {formatPrice(it.price)}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

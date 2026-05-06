@@ -419,11 +419,12 @@ p { margin: 0 0 1em; }
 }
 .visit__content { max-width: var(--maxw); margin: 0 auto; }
 .visit__grid {
-  margin-top: 3rem;
+  margin: 3rem auto 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, minmax(260px, 360px));
   gap: 1.5rem;
   text-align: left;
+  justify-content: center;
 }
 .visit__card {
   background: rgba(58, 18, 27, 0.55);
@@ -552,4 +553,91 @@ p { margin: 0 0 1em; }
     transform: none !important;
     animation: none !important;
   }
+}
+
+/* LANGUAGE SWITCHER */
+.lang-switcher {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 100;
+  display: flex;
+  gap: 0.35rem;
+  padding: 0.35rem;
+  background: rgba(28, 10, 15, 0.7);
+  border: 1px solid var(--color-rule);
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+.lang-switcher__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: none;
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  opacity: 0.75;
+}
+.lang-switcher__btn:hover { opacity: 1; }
+.lang-switcher__btn.is-active {
+  background: var(--color-gold);
+  color: var(--color-bg-3);
+  opacity: 1;
+}
+.lang-switcher__flag {
+  display: block;
+  width: 22px;
+  height: 14px;
+  border-radius: 2px;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+}
+
+/* VISIT note (small caption under hours) */
+.visit__note {
+  margin-top: 0.75rem !important;
+  font-style: italic;
+  color: var(--color-text-dim) !important;
+  font-size: 0.95rem !important;
+  line-height: 1.4 !important;
+}
+
+/* Make sure the language switcher is comfortable on mobile */
+@media (max-width: 600px) {
+  .lang-switcher {
+    top: 0.6rem;
+    right: 0.6rem;
+    padding: 0.25rem;
+  }
+  .lang-switcher__btn {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+    letter-spacing: 0.12em;
+  }
+  .lang-switcher__btn span { display: none; }
+  .lang-switcher__flag { width: 24px; height: 16px; }
+}
+
+/* Lower the switcher only while the sticky menu tab bar is engaged */
+.lang-switcher.is-lowered {
+  top: 4.4rem;
+  transition: top 0.25s ease;
+}
+.lang-switcher { transition: top 0.25s ease; }
+
+/* On wide screens the sticky bar is centered and never reaches the right edge,
+   so keep the switcher in its normal corner even when "is-lowered" is on. */
+@media (min-width: 1320px) {
+  .lang-switcher.is-lowered { top: 1rem; }
 }

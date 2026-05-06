@@ -1,6 +1,8 @@
 import React from "react";
+import { useLang } from "../i18n";
 
 export default function Visit() {
+  const { t } = useLang();
   return (
     <section id="visit" className="visit">
       <div
@@ -11,44 +13,27 @@ export default function Visit() {
       />
       <div className="visit__overlay" />
       <div className="visit__content">
-        <span className="eyebrow">Visit Us</span>
-        <h2>Find your seat at Kraft.</h2>
+        <span className="eyebrow">{t.visit.eyebrow}</span>
+        <h2>{t.visit.heading}</h2>
 
         <div className="visit__grid">
           <div className="visit__card">
-            <h4>Address</h4>
-            <p>
-              Jagiello&#324;ska 8<br />
-              31-010 Krak&oacute;w, Polska
-            </p>
+            <h4>{t.visit.address}</h4>
+            <p style={{ whiteSpace: "pre-line" }}>{t.visit.addressLine}</p>
             <a
               className="visit__link"
-              href="https://www.google.com/maps/search/?api=1&query=Jagiellonska+8+31-010+Krakow"
+              href="https://maps.app.goo.gl/Gjk2V4Vo333yu2Z56"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Open in Google Maps &rarr;
+              {t.visit.maps} &rarr;
             </a>
           </div>
 
           <div className="visit__card">
-            <h4>Hours</h4>
-            <p>
-              Mon &ndash; Thu &middot; 16:00 &ndash; 00:00<br />
-              Fri &ndash; Sat &middot; 16:00 &ndash; 02:00<br />
-              Sun &middot; 16:00 &ndash; 23:00
-            </p>
-          </div>
-
-          <div className="visit__card">
-            <h4>Reservations</h4>
-            <p>
-              Walk-ins welcome.<br />
-              For groups of 4+ please get in touch.
-            </p>
-            <a className="visit__link" href="mailto:hello@kraft-krakow.pl">
-              hello@kraft-krakow.pl
-            </a>
+            <h4>{t.visit.hours}</h4>
+            <p style={{ whiteSpace: "pre-line" }}>{t.visit.hoursLines}</p>
+            <p className="visit__note">{t.visit.hoursNote}</p>
           </div>
         </div>
       </div>
