@@ -7,7 +7,7 @@ export const translations = {
     hero: {
       tagline: "Bar Koktajlowy · Kraków",
       sub:
-        "Domowe koktajle z beczki, światowej klasy alkohole i spokojny kącik na Jagiellońskiej — otwarte od popołudnia do późna.",
+        "Rzemieślnicze koktajle z nalewaków, światowej klasy alkohole w klimatycznym miejscu w samym centrum Krakowa - otwarte od południa do nocy",
       cta: "Zobacz Menu",
       scroll: "scroll",
     },
@@ -15,10 +15,10 @@ export const translations = {
       eyebrow: "O nas",
       heading: "Rzemieślniczy bar na Jagiellońskiej.",
       p1:
-        "Kraft to spokojny, oświetlony świecami lokal w sercu starego Krakowa — oparty na założeniu, że koktajl powinien być przygotowany z taką samą dbałością jak alkohol, z którego powstaje. Nasze domowe koktajle z beczki są wcześniej kompozycjonowane, leżakowane i podawane w idealnej temperaturze, a za barem czeka ponad sto starannie wybranych butelek z polskich destylarni i z całego świata.",
+        "Kraft to klimatyczne lokal w sercu starego Krakowa — oparty na założeniu, że koktajl powinien być przygotowany z taką samą dbałością jak alkohol, z którego powstaje. Nasze domowe koktajle z nalewaków są wcześniej kompowane, leżakowane i podawane w idealnej temperaturze, a za barem czeka ponad sto starannie wybranych butelek z Polski oraz z całego świata.",
       p2:
-        "Wpadnij na kawę po południu, na Aperol w trakcie wieczoru lub zostań na dłużej z whisky w dłoni. Cokolwiek zamówisz, podaje to ktoś, komu naprawdę zależy.",
-      h1: "Domowe", h1sub: "9 koktajli z beczki",
+        "Wpadnij na kawę w południe, na Aperola w ciągu dnia lub zostań na dłużej z whisky w dłoni. Cokolwiek wybierzesz to zadba o ciebie ktoś, kto wie co robi oraz komu naprawdę zależy.",
+      h1: "Domowe", h1sub: "11 koktajli z nalewaków",
       h2: "120+", h2sub: "alkoholi za barem",
       h3: "Codziennie", h3sub: "otwarte do późna",
     },
@@ -65,7 +65,7 @@ export const translations = {
     hero: {
       tagline: "Cocktail Bar · Kraków",
       sub:
-        "Homemade draft cocktails, world-class spirits and a quiet corner on Jagiellońska — open from afternoon until late.",
+        "Craft cocktails on tap, world-class spirits, and a cozy atmosphere right in the heart of Kraków — open from noon till late at night",
       cta: "Explore the Menu",
       scroll: "scroll",
     },
@@ -73,10 +73,10 @@ export const translations = {
       eyebrow: "Our Story",
       heading: "A craft bar on Jagiellońska.",
       p1:
-        "Kraft is a quiet, candle-lit room in the heart of old Kraków — built around the idea that a cocktail should be made with the same care as the spirit inside it. Our homemade drafts are pre-batched, aged and poured at the perfect temperature, while our back-bar gathers more than a hundred curated bottles from Polish distilleries and the world over.",
+        "Kraft is an atmospheric room in the heart of old Kraków — built around the idea that a cocktail should be made with the same care as the spirit inside it. Our homemade tap cocktails are pre-batched, aged and poured at the perfect temperature, while our back-bar gathers more than a hundred curated bottles from Polish distilleries and the world over.",
       p2:
-        "Drop in for a coffee in the afternoon, an Aperol in the evening, or settle in for a long evening of single malts. Whatever you order, it's poured by people who care.",
-      h1: "Homemade", h1sub: "9 draft cocktails",
+        "Drop in for a coffee at noon, an Aperol during the day, or settle in with a whisky in hand. Whatever you choose, it's poured by someone who knows their craft and truly cares.",
+      h1: "Homemade", h1sub: "11 draft cocktails",
       h2: "120+", h2sub: "spirits behind the bar",
       h3: "Daily", h3sub: "open until late",
     },

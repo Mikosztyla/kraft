@@ -9,6 +9,7 @@ const menu = [
     items: [
       { name: "Negroni", price: 40 },
       { name: "Pornstar Martini", price: 40 },
+      { name: "Nitro Espresso Martini", price: 40 },
       { name: "Strawberry Daiquiri", price: 35 },
       { name: "Polish Spritz", price: 35 },
       { name: "Hugo Spritz", price: 35 },
@@ -16,6 +17,7 @@ const menu = [
       { name: "Paloma", price: 35 },
       { name: "Paloma 0%", price: 22 },
       { name: "Lemonade", price: 22 },
+      { name: "Nitro Cold Brew", price: 25 },
     ],
   },
   {
