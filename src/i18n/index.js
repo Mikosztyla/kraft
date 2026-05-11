@@ -120,15 +120,15 @@ export const translations = {
   },
 };
 
-const LanguageContext = createContext({ lang: "pl", setLang: () => {}, t: translations.pl });
+const LanguageContext = createContext({ lang: "en", setLang: () => {}, t: translations.en });
 
 export function LanguageProvider({ children }) {
   const [lang, setLang] = useState(() => {
-    if (typeof window === "undefined") return "pl";
+    if (typeof window === "undefined") return "en";
     try {
-      return localStorage.getItem("kraft.lang") || "pl";
+      return localStorage.getItem("kraft.lang") || "en";
     } catch {
-      return "pl";
+      return "en";
     }
   });
 
